@@ -1,0 +1,29 @@
+# ┏┓┓ ┳┏┓┏┓┏┓┏┓
+# ┣┫┃ ┃┣┫┗┓┣ ┗┓
+# ┛┗┗┛┻┛┗┗┛┗┛┗┛
+#
+
+# ─── Package Management ─── #
+alias ip="sudo pacman -S"          # Install package with pacman
+alias rp="sudo pacman -Rns"       # Remove package + unused dependencies
+alias up="sudo pacman -Syu"       # Update system packages
+alias iy="yay -S"                 # Install package with yay (AUR)
+alias ry="yay -Rns"              # Remove yay package + unused dependencies
+alias uy="yay -Syu"              # Update all AUR packages
+
+# ─── Searching / Finding ─── #
+alias f="find . -iname"           # e.g., f '*.txt'
+alias g="grep --color=auto -R"    # e.g., g 'pattern' .
+alias unlinklinks='find ~/.config -maxdepth 1 -type l -exec unlink {} \;'  # ONLY UNLINK ~/.config !!!
+alias ls='ls --color=auto'
+
+# ─── System Info ─── #
+alias duh="du -h --max-depth=1"   # Human-readable, shows only top-level directories
+alias duu="du -sh *"
+
+# ─── Git Shortcuts ─── #
+alias gs="git status"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git log --oneline --graph --decorate"
