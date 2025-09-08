@@ -5,13 +5,16 @@
  *
  */
 
+/* Colors */
+@import '../../.cache/hellwal/waybar-colors.css';
+
 * {
   font-family: JetbrainsMono Nerd Font;
   font-size: 20px;
 }
 
 window {
-  color: #d3c6aa;
+  color: @foreground;
   /* text */
   background-color: rgba(39, 46, 51, 0.5);
 
@@ -27,7 +30,7 @@ button {
   box-shadow: 0 0 10px 2px transparent;
   border-radius: 36px;
   margin: 10px;
-  color: #d3c6aa;
+  color: @foreground;
   border: none;
   outline: none;
 }
@@ -43,7 +46,7 @@ button:hover {
   background-size: 50%;
   outline-style: none;
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, .4);
-  background-color: #83c092;
+  background-color: @color3;
   color: rgba(0, 0, 0, 0);
   text-shadow: none;
   transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.5s ease-in;

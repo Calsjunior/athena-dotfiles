@@ -3,13 +3,11 @@
 # ┗┓┃ ┣┫┣ ┣ ┃┃┗┓┣┫┃┃ ┃
 # ┗┛┗┛┛┗┗┛┗┛┛┗┗┛┛┗┗┛ ┻
 #
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */ ##
 # Optimized Screenshots script
 
 # Configuration
-readonly ICON_DIR="$HOME/.config/swaync/icons"
 readonly SCRIPT_DIR="$HOME/.config/hypr/scripts"
-readonly NOTIFY_CMD="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low -i ${ICON_DIR}/picture.png"
+readonly NOTIFY_CMD="notify-send -h string:x-canonical-private-synchronous:shot-notify -u low"
 readonly SCREENSHOT_DIR="$(xdg-user-dir)/Pictures/screenshots"
 readonly SOUNDS_SCRIPT="${SCRIPT_DIR}/sounds.sh"
 
@@ -28,10 +26,10 @@ take_now() {
     local filepath="${SCREENSHOT_DIR}/${file}"
 
     if grim "$filepath" && wl-copy < "$filepath"; then
-        ${NOTIFY_CMD} " Screenshot Saved."
+        ${NOTIFY_CMD} "Screenshot Saved."
         [[ -x "$SOUNDS_SCRIPT" ]] && "$SOUNDS_SCRIPT" --screenshot
     else
-        ${NOTIFY_CMD} " Screenshot NOT Saved."
+        ${NOTIFY_CMD} "Screenshot NOT Saved."
     fi
 }
 
@@ -40,7 +38,7 @@ take_swappy() {
     local tmpfile=$(mktemp)
 
     if grim -g "$(slurp)" "$tmpfile" 2>/dev/null && [[ -s "$tmpfile" ]]; then
-        ${NOTIFY_CMD} " Screenshot Captured."
+        ${NOTIFY_CMD} "Screenshot Captured."
         [[ -x "$SOUNDS_SCRIPT" ]] && "$SOUNDS_SCRIPT" --screenshot
         swappy -f "$tmpfile"
     fi

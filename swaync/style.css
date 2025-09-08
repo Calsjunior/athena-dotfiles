@@ -1,22 +1,13 @@
 /***
- *    ┏┓┓ ┏┏┓┓┏┳┓┏┓  ┏┓┓┏┏┓┳┓┏┓┏┓┳┓┏┓┏┓┏┳┓
- *    ┗┓┃┃┃┣┫┗┫┃┃┃ ━━┣ ┃┃┣ ┣┫┣ ┃┃┣┫┣ ┗┓ ┃
- *    ┗┛┗┻┛┛┗┗┛┛┗┗┛  ┗┛┗┛┗┛┛┗┻ ┗┛┛┗┗┛┗┛ ┻
- *
+ *    ┏┓┓ ┏┏┓┓┏┳┓┏┓
+ *    ┗┓┃┃┃┣┫┗┫┃┃┃
+ *    ┗┛┗┻┛┛┗┗┛┛┗┗┛
  */
 
 
 
 /* Colors */
-@define-color background #272e33;
-@define-color background-alt #475258;
-@define-color background-alt-darker #414b50;
-@define-color accent-normal #a7c080;
-@define-color accent-error #e67e80;
-@define-color bordercolor #a7c080;
-@define-color fontcolor #d3c6aa;
-@define-color fontaltcolor #272e33;
-
+@import '../../.cache/hellwal/waybar-colors.css';
 
 /* Config */
 
@@ -29,8 +20,8 @@
 .notification {
   background: @background;
   margin-top: 5px;
-  color: @fontcolor;
-  border: 2px solid @bordercolor;
+  color: @foreground;
+  border: 2px solid @border;
   border-radius: 10px;
   padding: 2px 8px;
 }
@@ -38,14 +29,14 @@
 .body {
   font-size: 15.1px;
   /* using 15px some fucking how makes the text gets cut off */
-  color: @fontcolor;
+  color: @foreground;
 }
 
 .summary {
   font-size: 16px;
   font-weight: 700;
   background: transparent;
-  color: @accent-normal;
+  color: @color2;
   text-shadow: none;
 }
 
@@ -53,14 +44,14 @@
   font-size: 16px;
   font-weight: 700;
   background: transparent;
-  color: @fontcolor;
+  color: @foreground;
   text-shadow: none;
   margin-right: 18px;
 }
 
 .close-button {
-  background-color: @accent-error;
-  color: @fontaltcolor;
+  background-color: @color1;
+  color: @background;
   margin-top: 5px;
   margin-right: 5px;
   border-radius: 6px;
@@ -68,25 +59,25 @@
 
 .notification-default-action:hover,
 .notification-action:hover {
-  color: @fontcolor;
+  color: @foreground;
   background: transparent;
 }
 
 .notification.critical progress {
-  background-color: @accent-error;
+  background-color: @color1;
 }
 
 .notification.low progress,
 .notification.normal progress {
-  background-color: @accent-normal;
+  background-color: @color2;
 }
 
 /* Control Center */
 
 .control-center {
   background-color: @background;
-  color: @fontcolor;
-  border: 3px solid @bordercolor;
+  color: @foreground;
+  border: 3px solid @border;
   padding: 10px;
 }
 
@@ -100,17 +91,17 @@
 }
 
 .notification-group-icon {
-  color: @fontcolor;
+  color: @foreground;
 }
 
 .notification-group-headers {
-  color: @fontcolor;
+  color: @foreground;
 }
 
 .notification-group-collapse-button,
 .notification-group-close-all-button {
-  background: @accent-normal;
-  color: @fontaltcolor;
+  background: @color2;
+  color: @background;
   margin: 4px;
   border-radius: 6px;
   padding: 4px;
@@ -118,56 +109,56 @@
 
 .notification-group-collapse-button:hover,
 .notification-group-close-all-button:hover {
-  background: @accent-error;
-  color: @fontaltcolor;
+  background: @color1;
+  color: @background;
 }
 
 
 /* widget title */
 .widget-title {
-  color: @fontcolor;
+  color: @foreground;
 }
 
 .widget-title>button {
   font-size: 1rem;
-  color: @fontcolor;
-  background: @background-alt-darker;
+  color: @foreground;
+  background: @color0;
   box-shadow: none;
 }
 
 .widget-title>button:hover {
-  background: @accent-error;
-  color: @fontaltcolor;
+  background: @color1;
+  color: @background;
 }
 
 /* widget button grid */
 button {
   border: 0px;
   min-width: 35px;
-  background: @background-alt;
+  background: @color8;
 }
 
 .widget-buttons-grid {
   font-size: x-large;
-  background: @background-alt-darker;
+  background: @color0;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button {
-  color: @fontcolor;
+  color: @foreground;
   margin: 8px;
   padding: 10px;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button:hover {
-  background: alpha(@fontcolor, 0.55);
+  background: alpha(@foreground, 0.55);
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button.toggle:checked {
-  background: @accent-normal;
+  background: @color2;
 }
 
 .widget-buttons-grid>flowbox>flowboxchild>button.toggle:checked label {
-  color: @fontaltcolor;
+  color: @background;
 }
 
 
@@ -178,37 +169,37 @@ button {
   background: transparent;
   border: 1px solid transparent;
   font-size: large;
-  color: @fontcolor;
+  color: @foreground;
 }
 
 .widget-dnd>label {
-  color: @fontcolor;
+  color: @foreground;
 }
 
 .widget-dnd>switch {
-  background: @background-alt;
-  color: @fontcolor;
+  background: @color8;
+  color: @foreground;
   border-radius: 6px;
 }
 
 .widget-dnd>switch:checked {
-  background: @accent-error;
-  border: 1px solid @accent-error;
+  background: @color1;
+  border: 1px solid @color1;
 }
 
 
 /* volume & backlight widget */
 
 .widget-volume {
-  background: @background-alt-darker;
-  color: @fontcolor;
+  background: @color0;
+  color: @foreground;
   font-size: x-large;
 }
 
 
 .widget-backlight {
-  background: @background-alt-darker;
-  color: @fontcolor;
+  background: @color0;
+  color: @foreground;
   font-size: x-large;
 }
 
@@ -224,24 +215,24 @@ button {
 }
 
 .widget-mpris button:hover {
-  background-color: @accent-normal;
-  color: @fontaltcolor;
+  background-color: @color2;
+  color: @background;
 }
 
 
 /* sliders in backlight and volume */
 
 trough slider {
-  background: @fontcolor;
+  background: @foreground;
 }
 
 trough slider:hover {
-  background: @accent-normal;
+  background: @color2;
 }
 
 
 trough highlight {
-  background: @accent-normal;
+  background: @color2;
 }
 
 scrollbar,

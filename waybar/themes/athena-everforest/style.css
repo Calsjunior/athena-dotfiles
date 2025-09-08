@@ -7,7 +7,16 @@
 
 
 /*-----------Defining Colors----------*/
-@import '../../.cache/hellwal/waybar-colors.css';
+@define-color background #272e33;
+@define-color background-alt #414b50;
+@define-color foreground #d3c6aa;
+@define-color foreground-alt #272e33;
+@define-color red #e67e80;
+@define-color green #a7c080;
+@define-color yellow #dbbc7f;
+@define-color blue #7fbbb3;
+@define-color magenta #d699b6;
+@define-color cyan #83c092;
 
 
 * {
@@ -46,7 +55,7 @@ window#waybar {
 
 tooltip {
     background: @background;
-    border: 2px solid @color15;
+    border: 2px solid @green;
     border-radius: 12px;
 }
 
@@ -64,7 +73,7 @@ tooltip-label {
 #memory:hover,
 #temperature:hover {
     transition: all .3s ease;
-    color: @color6;
+    color: @cyan;
 }
 
 
@@ -81,7 +90,7 @@ tooltip-label {
 #workspaces button {
     all: unset;
     padding: 0px 5px;
-    color: alpha(@color2, .4);
+    color: alpha(@green, .4);
     transition: all .2s ease;
 }
 
@@ -93,7 +102,7 @@ tooltip-label {
 }
 
 #workspaces button.active {
-    color: @color2;
+    color: @green;
     border: none;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
 }
@@ -125,22 +134,23 @@ tooltip-label {
     min-width: 30px;
     margin: 0px 2px;
     padding: 3px 9px;
+    background: alpha(@background-alt, 0.3);
     transition: all .3s ease;
     color: @foreground;
     border-radius: 8px;
-    border: 1px solid alpha(@color2, 0.6);
+    border: 1px solid alpha(@green, 0.2);
 }
 
 #battery.charging {
-    color: @color6;
+    color: @cyan;
 }
 
 #battery.warning:not(.charging) {
-    color: @color1;
+    color: @red;
 }
 
 #battery.critical:not(.charging) {
-    color: @color1;
+    color: @red;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -172,10 +182,11 @@ tooltip-label {
     min-width: 30px;
     margin: 0px 2px;
     padding: 3px 8px;
+    background: alpha(@background-alt, 0.3);
     transition: all .3s ease;
     color: @foreground;
     border-radius: 8px;
-    border: 1px solid alpha(@color2, 0.6);
+    border: 1px solid alpha(@green, 0.2);
 }
 
 

@@ -4,38 +4,20 @@
 #  ┗┻┛┛┗┗┛┗┛┗┛┗┛┗┛┗┛┗┛ ┻
 #
 
-# Thank you gh0stzk for the script 🤲 means a lot
-# Copyright (C) 2021-2025 gh0stzk <z0mbi3.zk@protonmail.com>
-# Licensed under GPL-3.0 license
-
-# WallSelect - Dynamic wallpaper selector with intelligent caching system
+# WallSelect + HellWal Integration - Dynamic wallpaper selector with automatic theme generation
 # Features:
-#   ✔ Multi-monitor support with scaling
-#   ✔ Auto-updating menu (add/delete wallpapers without restart)
-#   ✔ Parallel image processing (optimized CPU usage)
-#   ✔ XXHash64 checksum verification for cache integrity
-#   ✔ Orphaned cache detection and cleanup
-#   ✔ Adaptive icon sizing based on screen resolution
-#   ✔ Lockfile system for safe concurrent operations
-#   ✔ Handle gif files separately
-#   ✔ Rofi integration with theme support
-#   ✔ Lightweight (~2ms overhead on cache hits)
-#
-# Dependencies:
-#   → Core: hyprland, rofi, jq, xxhsum (xxhash)
-#   → Media: swww, imagemagick
-#   → GNU: findutils, coreutils, bc
+#   ✔ All original wallpaper selector features
+#   ✔ Automatic hellwal theme generation from selected wallpaper
+#   ✔ Hyprland color integration
+#   ✔ Multi-application theme updates
 
-
-
-# Set dir varialable
+# Set dir variables
 wall_dir="$HOME/Pictures/wallpapers"
 cacheDir="$HOME/.cache/wallcache"
 scriptsDir="$HOME/.config/hypr/scripts"
 
 # Create cache dir if not exists
 [ -d "$cacheDir" ] || mkdir -p "$cacheDir"
-
 
 # Get focused monitor
 focused_monitor=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
@@ -133,35 +115,62 @@ swww query || swww-daemon --format xrgb
 # full wallpaper path
 wallpaper_path="${wall_dir}/${wall_selection}"
 
-# set wallpaper & export wall-thumbnails to rofi folder
+# Apply wallpaper and generate theme
 if [[ -n "$wall_selection" ]]; then
 
-	# set wallpaper
-	swww img -o "$focused_monitor" "${wallpaper_path}" $SWWW_PARAMS
+    # Generate hellwal theme from wallpaper (run in background for speed)
+    (
+        # Generate colors from wallpaper using hellwal
+        hellwal -i "$wallpaper_path" -b "0.3">/dev/null 2>&1
 
-	#-------Imagemagick magick 👀--------------#
-	wait $!
+        pywalfox update
 
-	# convert and resize the current wallpaper & make it image for rofi with blur
-	magick "$wallpaper_path" -strip -resize 1000 -gravity center -extent 1000 -blur "30x30" -quality 90 $HOME/.config/rofi/images/currentWalBlur.thumb
+        # Reload Hyprland to apply new colors
+        hyprctl reload >/dev/null 2>&1
 
-	# convert and resize the current wallpaper & make it image for rofi without blur
-	magick "$wallpaper_path" -strip -resize 1000 -gravity center -extent 1000 -quality 90 $HOME/.config/rofi/images/currentWal.thumb
+        # Reload other applications
+        if command -v waybar >/dev/null 2>&1; then
+            pkill waybar 2>/dev/null
+            waybar & disown
+        fi
 
-	# convert and resize the current wallpaper & make it image for rofi with square format
-	magick "$wallpaper_path" -strip -thumbnail 500x500^ -gravity center -extent 500x500 $HOME/.config/rofi/images/currentWal.sqre
+        if command -v swaync >/dev/null 2>&1; then
+            pkill swaync 2>/dev/null
+            swaync & disown
+        fi
+    ) &
 
-	# convert and resize the square formatted & make it image for rofi with drawing polygon
-	magick $HOME/.config/rofi/images/currentWal.sqre \( -size 500x500 xc:white -fill "rgba(0,0,0,0.7)" -draw "polygon 400,500 500,500 500,0 450,0" -fill black -draw "polygon 500,500 500,0 450,500" \) -alpha Off -compose CopyOpacity -composite $HOME/.config/rofi/images/currentWalQuad.png && mv $HOME/.config/rofi/images/currentWalQuad.png $HOME/.config/rofi/images/currentWalQuad.quad
+    # Set wallpaper (this runs immediately)
+    swww img -o "$focused_monitor" "${wallpaper_path}" $SWWW_PARAMS
 
+    #-------Imagemagick magick 👀--------------#
+    wait $!
 
-	# copy the wallpaper in current-wallpaper file
-	wait $!
-	ln -sf "$wallpaper_path" "$HOME/.local/share/bg"
+    # convert and resize the current wallpaper & make it image for rofi with blur
+    magick "$wallpaper_path" -strip -resize 1000 -gravity center -extent 1000 -blur "30x30" -quality 90 $HOME/.config/rofi/images/currentWalBlur.thumb
 
-	# send notification after completion
-	wait $!
-	notify-send -e -h string:x-canonical-private-synchronous:matugen_notif "WallSelect" "WallSelect & ImageMagick has completed its job" -i $HOME/.local/share/bg
+    # convert and resize the current wallpaper & make it image for rofi without blur
+    magick "$wallpaper_path" -strip -resize 1000 -gravity center -extent 1000 -quality 90 $HOME/.config/rofi/images/currentWal.thumb
+
+    # convert and resize the current wallpaper & make it image for rofi with square format
+    magick "$wallpaper_path" -strip -thumbnail 500x500^ -gravity center -extent 500x500 $HOME/.config/rofi/images/currentWal.sqre
+
+    # convert and resize the square formatted & make it image for rofi with drawing polygon
+    magick $HOME/.config/rofi/images/currentWal.sqre \( -size 500x500 xc:white -fill "rgba(0,0,0,0.7)" -draw "polygon 400,500 500,500 500,0 450,0" -fill black -draw "polygon 500,500 500,0 450,500" \) -alpha Off -compose CopyOpacity -composite $HOME/.config/rofi/images/currentWalQuad.png && mv $HOME/.config/rofi/images/currentWalQuad.png $HOME/.config/rofi/images/currentWalQuad.quad
+
+    # copy the wallpaper in current-wallpaper file
+    wait $!
+    ln -sf "$wallpaper_path" "$HOME/.local/share/bg"
+
+    # send notification after completion (wait for hellwal to finish)
+    wait $!
+
+    # Get the dominant colors for the notification
+    primary_color=$(cat ~/.cache/hellwal/colors | head -n 2 | tail -n 1 2>/dev/null || echo "#ffffff")
+
+    notify-send -e -h string:x-canonical-private-synchronous:wallpaper_theme_notif \
+        "Wallpaper & Theme Applied" \
+        "Wallpaper set and theme generated from colors" \
+        -i $HOME/.local/share/bg
 
 fi
-
