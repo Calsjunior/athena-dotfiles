@@ -8,14 +8,14 @@
 
 
 /* Colors */
-@define-color background #1d2021;
-@define-color background-alt #66594C;
-@define-color background-alt-darker #282828;
-@define-color accent-normal #d8a657;
-@define-color accent-error #ea6962;
-@define-color bordercolor #d8a657;
-@define-color fontcolor #d4be98;
-@define-color fontaltcolor #1d2021;
+@define-color background #272e33;
+@define-color background-alt #475258;
+@define-color background-alt-darker #414b50;
+@define-color accent-normal #a7c080;
+@define-color accent-error #e67e80;
+@define-color bordercolor #a7c080;
+@define-color fontcolor #d3c6aa;
+@define-color fontaltcolor #272e33;
 
 
 /* Config */
