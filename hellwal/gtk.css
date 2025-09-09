@@ -2,9 +2,9 @@
 * GTK Colors
 */
 
-@define-color window_bg_color #111215;
-@define-color window_backdrop_color #111215;
-@define-color window_fg_color #ffffff;
+@define-color window_bg_color #272e33;
+@define-color window_backdrop_color #272e33;
+@define-color window_fg_color #d3c6aa;
 window.csd {
     background-color: @window_bg_color;
 }
@@ -12,9 +12,9 @@ window.csd:backdrop {
     background-color: @window_backdrop_color;
 }
 
-@define-color view_bg_color #111215;
-@define-color view_backdrop_color #111215;
-@define-color view_fg_color #ffffff;
+@define-color view_bg_color #272e33;
+@define-color view_backdrop_color #272e33;
+@define-color view_fg_color #d3c6aa;
 .content-pane, .content-pane.view, .view {
     background-color: @view_bg_color;
 }
@@ -22,9 +22,9 @@ window.csd:backdrop {
     background-color: @view_backdrop_color;
 }
 
-@define-color accent_color #acd5d9;
-@define-color accent_bg_color #acd5d9;
-@define-color accent_fg_color #111215;
+@define-color accent_color #d699b6;
+@define-color accent_bg_color #d699b6;
+@define-color accent_fg_color #272e33;
 
 link {
     color: @accent_bg_color;
@@ -190,9 +190,9 @@ terminal-window > box > notebook > header > tabs > tab:checked:hover {
     box-shadow: inset 0 -3px shade(@accent_color, 1.2);
 }
 
-@define-color headerbar_bg_color #111215;
-@define-color headerbar_backdrop_color #111215;
-@define-color headerbar_fg_color #ffffff;
+@define-color headerbar_bg_color #272e33;
+@define-color headerbar_backdrop_color #272e33;
+@define-color headerbar_fg_color #d3c6aa;
 
 headerbar,
 .top-bar,
@@ -305,16 +305,16 @@ scrolledwindow>viewport>list:backdrop {
     color: @card_fg_color;
 }
 
-@define-color card_bg_color #111215;
-@define-color card_backdrop_color #111215;
-@define-color card_fg_color #ffffff;
+@define-color card_bg_color #272e33;
+@define-color card_backdrop_color #272e33;
+@define-color card_fg_color #d3c6aa;
 
-@define-color dialog_bg_color #111215;
-@define-color dialog_backdrop_color #111215;
-@define-color dialog_fg_color #ffffff;
+@define-color dialog_bg_color #272e33;
+@define-color dialog_backdrop_color #272e33;
+@define-color dialog_fg_color #d3c6aa;
 
-@define-color popover_bg_color #111215;
-@define-color popover_fg_color #ffffff;
+@define-color popover_bg_color #272e33;
+@define-color popover_fg_color #d3c6aa;
 popover > contents {
     box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08);
     border: 1px solid alpha(@accent_color, 0.3);
