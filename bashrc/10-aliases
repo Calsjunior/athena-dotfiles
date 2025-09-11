@@ -3,6 +3,9 @@
 # ┛┗┗┛┻┛┗┗┛┗┛┗┛
 #
 
+# ─── Editor ─── #
+alias v="nvim"
+
 # ─── Package Management ─── #
 alias ip="sudo pacman -S"          # Install package with pacman
 alias rp="sudo pacman -Rns"       # Remove package + unused dependencies
