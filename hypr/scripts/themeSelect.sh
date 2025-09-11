@@ -21,6 +21,7 @@ SWAP_CSS_FILES=(
 
 ROFI_THEME="$HOME/.config/rofi/applets/themeSelect.rasi"
 VS_CODE_SETTINGS="$HOME/.config/Code/User/settings.json"
+NVIM_THEME_FILE="$HOME/.config/nvim/current_theme"
 
 # ────────── Functions ──────────
 
@@ -47,7 +48,7 @@ set_hyprlock_color() {
                 -e 's/outer_color = \$color3/outer_color = $color2/' \
                 -e 's/font_color = \$color3/font_color = $color2/'
             ;;
-        "gruvbox"|"gruvbox-material")
+        "gruvbox-material")
             apply_sed "$HYPRLOCK_CONFIG" \
                 -e 's/outer_color = \$color2/outer_color = $color3/' \
                 -e 's/font_color = \$color2/font_color = $color3/'
@@ -68,7 +69,6 @@ set_vscode_theme() {
     [[ -f $VS_CODE_SETTINGS ]] && sed -i "s/\"workbench.colorTheme\": \"[^\"]*\"/\"workbench.colorTheme\": \"$1\"/" "$VS_CODE_SETTINGS"
 }
 
-
 # Waybar theme
 apply_waybar_theme() {
     local theme_dir="$WAYBAR_THEME_DIR/$1"
@@ -79,6 +79,27 @@ apply_waybar_theme() {
     else
         echo "⚠ Waybar theme not found: $theme_dir"
     fi
+}
+
+# Neovim theme (file-based approach)
+set_nvim_theme() {
+    local nvim_theme_name=""
+    
+    case "$1" in
+        "everforest")
+            nvim_theme_name="everforest"
+            ;;
+        "gruvbox"|"gruvbox-material")
+            nvim_theme_name="gruvbox-material"
+            ;;
+        *)
+            nvim_theme_name="gruvbox-material"  # fallback
+            ;;
+    esac
+    
+    # Write theme to file 
+    echo "$nvim_theme_name" > "$NVIM_THEME_FILE"
+    echo "✓ Set Neovim theme: $nvim_theme_name"
 }
 
 # Restart applications
@@ -130,6 +151,7 @@ main() {
     set_hyprland_border "$color_var"
     set_hyprlock_color "$choice"
     set_vscode_theme "$vscode_theme"
+    set_nvim_theme "$choice"
 
     # Update Firefox
     pywalfox update
