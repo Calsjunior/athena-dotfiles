@@ -28,8 +28,11 @@ vim.cmd [[
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
 
-  " TERMINAL
-  Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+  " EDITING 
+  Plug 'altermo/ultimate-autopair.nvim'
+  Plug 'kylechui/nvim-surround'
+  Plug 'abecodes/tabout.nvim'
+  Plug 'numToStr/Comment.nvim'
 
   call plug#end()
 ]]
@@ -53,17 +56,32 @@ vim.opt.hlsearch = true
 vim.opt.autoread = true
 vim.opt.hidden = true
 vim.opt.undofile = true
-vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr-o:hor20"
+vim.opt.guicursor = "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
 
 -- ========================
 -- Keybindings
 -- ========================
 vim.g.mapleader = ","
 local map = vim.keymap.set
+
+-- File operations
 map("n", "<leader>w", ":w<CR>")
 map("n", "<leader>q", ":q<CR>")
+
+-- File explorer
 map("n", "<leader>e", ":NvimTreeToggle<CR>")
+
+-- Telescope
 map("n", "<leader>ff", ":Telescope find_files<CR>")
 map("n", "<leader>fg", ":Telescope live_grep<CR>")
 map("n", "<leader>fb", ":Telescope buffers<CR>")
 map("n", "<leader>fh", ":Telescope help_tags<CR>")
+
+-- Search
+map("n", "<Esc><Esc>", ":nohlsearch<CR>", { silent = true })
+
+-- Terminal
+map("n", "<leader>t", function()
+  vim.cmd("rightbelow vsplit | terminal")
+end, { desc = "Open terminal on the right" })
+map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
