@@ -19,6 +19,7 @@ alias f="find . -iname"           # e.g., f '*.txt'
 alias g="grep --color=auto -R"    # e.g., g 'pattern' .
 alias unlinklinks='find ~/.config -maxdepth 1 -type l -exec unlink {} \;'  # ONLY UNLINK ~/.config !!!
 alias ls='ls --color=auto'
+alias recent-installs='grep "installed" /var/log/pacman.log | grep -v "as dependency"'
 
 # ─── System Info ─── #
 alias duh="du -h --max-depth=1"   # Human-readable, shows only top-level directories

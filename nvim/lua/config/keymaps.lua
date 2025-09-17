@@ -1,0 +1,35 @@
+-- Add comma after brackets
+vim.keymap.set("i", "<C-,>", function()
+    local line = vim.api.nvim_get_current_line()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local next_char = line:sub(col + 1, col + 1)
+
+    if next_char == "}" or next_char == "]" or next_char == ")" then
+        -- Modify the line directly
+        local new_line = line:sub(1, col + 1) .. "," .. line:sub(col + 2)
+        vim.api.nvim_set_current_line(new_line)
+    end
+end, { desc = "Add comma after bracket" })
+
+-- Buffer
+vim.keymap.del("n", "<S-h>")
+vim.keymap.del("n", "<S-l>")
+vim.keymap.set("n", "th", "<cmd>bprev<CR>", { desc = "Prev Buffer" })
+vim.keymap.set("n", "tl", "<cmd>bnext<CR>", { desc = "Next Buffer" })
+
+-- Beginning and End of line
+vim.keymap.set("n", "H", "^", { desc = "Start of line (non-blank)" })
+vim.keymap.set("n", "L", "$", { desc = "End of line (non-blank)" })
+
+-- Terminal
+local nativeTermGroup = vim.api.nvim_create_augroup("TerminalSettings", { clear = true })
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    group = nativeTermGroup,
+    pattern = "term://*",
+    callback = function(event)
+        local buf = event.buf
+        vim.keymap.set("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Go to Left Window", buffer = buf, nowait = true })
+        vim.keymap.set("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Go to Above Window", buffer = buf, nowait = true })
+        vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { desc = "Enter Normal Mode", buffer = buf, nowait = true })
+    end,
+})
