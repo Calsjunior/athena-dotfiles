@@ -11,6 +11,17 @@ vim.keymap.set("i", "<C-,>", function()
     end
 end, { desc = "Add comma after bracket" })
 
+-- Add semicolon at end of line
+vim.keymap.set("i", "<C-;>", function()
+    local line = vim.api.nvim_get_current_line()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+    -- Simply add semicolon at end of line if it doesn't already have one
+    if not line:match(";%s*$") then
+        vim.api.nvim_set_current_line(line .. ";")
+    end
+end, { desc = "Add semicolon at end of line" })
+
 -- Buffer
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
@@ -20,16 +31,3 @@ vim.keymap.set("n", "tl", "<cmd>bnext<CR>", { desc = "Next Buffer" })
 -- Beginning and End of line
 vim.keymap.set("n", "H", "^", { desc = "Start of line (non-blank)" })
 vim.keymap.set("n", "L", "$", { desc = "End of line (non-blank)" })
-
--- Terminal
-local nativeTermGroup = vim.api.nvim_create_augroup("TerminalSettings", { clear = true })
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-    group = nativeTermGroup,
-    pattern = "term://*",
-    callback = function(event)
-        local buf = event.buf
-        vim.keymap.set("t", "<C-h>", "<cmd>wincmd h<CR>", { desc = "Go to Left Window", buffer = buf, nowait = true })
-        vim.keymap.set("t", "<C-k>", "<cmd>wincmd k<CR>", { desc = "Go to Above Window", buffer = buf, nowait = true })
-        vim.keymap.set("t", "<esc>", "<C-\\><C-n>", { desc = "Enter Normal Mode", buffer = buf, nowait = true })
-    end,
-})

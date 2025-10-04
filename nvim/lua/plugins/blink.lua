@@ -4,10 +4,11 @@ return {
         completion = {
             accept = { auto_brackets = { enabled = false } },
             list = {
-                max_items = 5, -- shrink the popup
+                max_items = 100, -- shrink the popup
             },
             menu = {
                 auto_show = false, -- don't auto popup, trigger manually
+                max_height = 5,
             },
         },
         sources = {

@@ -84,21 +84,21 @@ apply_waybar_theme() {
 # Neovim theme (file-based approach)
 set_nvim_theme() {
     local nvim_theme_name=""
-    
+
     case "$1" in
         "everforest")
             nvim_theme_name="everforest"
             ;;
-        "gruvbox"|"gruvbox-material")
+        "gruvbox" | "gruvbox-material")
             nvim_theme_name="gruvbox-material"
             ;;
         *)
-            nvim_theme_name="gruvbox-material"  # fallback
+            nvim_theme_name="gruvbox-material" # fallback
             ;;
     esac
-    
-    # Write theme to file 
-    echo "$nvim_theme_name" > "$NVIM_THEME_FILE"
+
+    # Write theme to file
+    echo "$nvim_theme_name" >"$NVIM_THEME_FILE"
     echo "✓ Set Neovim theme: $nvim_theme_name"
 }
 
@@ -109,7 +109,8 @@ restart_apps() {
         if pgrep -x "$app" >/dev/null; then
             pkill -x "$app"
             sleep 0.3
-            "$app" & disown
+            "$app" &
+            disown
             echo "✓ Restarted $app"
         fi
     done
@@ -121,7 +122,7 @@ get_theme_config() {
         "everforest")
             echo '$color2 @color3 @color2 Everforest Dark'
             ;;
-        "gruvbox"|"gruvbox-material")
+        "gruvbox" | "gruvbox-material")
             echo '$color3 @color2 @color3 Gruvbox Dark Hard'
             ;;
         *)
@@ -133,9 +134,9 @@ get_theme_config() {
 # ────────── Main ──────────
 main() {
     local choice
-    choice=$(find "$HELLWALL_THEME_DIR" -name "*.hellwal" -printf "%f\n" \
-        | sed 's/\.hellwal$//' \
-        | rofi -dmenu -p "󰏘 " -theme "$ROFI_THEME")
+    choice=$(find "$HELLWALL_THEME_DIR" -name "*.hellwal" -printf "%f\n" |
+        sed 's/\.hellwal$//' |
+        rofi -dmenu -p "󰏘 " -theme "$ROFI_THEME")
 
     [[ -z $choice ]] && return
 
@@ -143,7 +144,7 @@ main() {
     hellwal -t "$HELLWALL_THEME_DIR/$choice.hellwal"
 
     # Get theme configuration
-    read -r color_var swap_from swap_to vscode_theme <<< "$(get_theme_config "$choice")"
+    read -r color_var swap_from swap_to vscode_theme <<<"$(get_theme_config "$choice")"
 
     # Apply all theme changes
     apply_waybar_theme "$choice"

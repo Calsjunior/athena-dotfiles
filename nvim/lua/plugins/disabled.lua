@@ -10,13 +10,23 @@ return {
         enabled = false,
     },
     {
-        "neovim/nvim-lspconfig",
+        "nvim-treesitter/nvim-treesitter",
         opts = {
-            inlay_hints = { enabled = false },
+            indent = {
+                enable = false,
+            },
         },
     },
     {
         "folke/flash.nvim",
+        enabled = false,
+    },
+    {
+        "linux-cultist/venv-selector.nvim",
+        enabled = false,
+    },
+    {
+        "mfussenegger/nvim-dap-python",
         enabled = false,
     },
 }

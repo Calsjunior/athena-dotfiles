@@ -1,9 +1,3 @@
-/***
-*    ┏┓┏┳┓┓┏┏┓┳┓┏┓  ┏┓┏┓┏┓
-*    ┣┫ ┃ ┣┫┣ ┃┃┣┫━━┃ ┗┓┗┓
-*    ┛┗ ┻ ┛┗┗┛┛┗┛┗  ┗┛┗┛┗┛
-*/
-
 /* ═══════════════════════════════════════════════════════════════════════════════ */
 /*                                   IMPORTS & GLOBALS                             */
 /* ═══════════════════════════════════════════════════════════════════════════════ */
@@ -41,6 +35,7 @@ window#waybar {
 }
 
 .modules-center {
+    padding: 0px 9px 0px 9px;
     margin: 8px 0px 5px 0px;
 }
 
@@ -186,7 +181,7 @@ tooltip label {
 
 #battery.critical:not(.charging) {
     color: @color1;
-    animation: blink 0.5s linear infinite alternate;
+    animation: blink 2s linear infinite alternate;
 }
 
 /* Group expand functionality */

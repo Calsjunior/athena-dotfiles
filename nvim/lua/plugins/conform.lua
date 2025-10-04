@@ -2,38 +2,66 @@ return {
     "stevearc/conform.nvim",
     opts = {
         formatters = {
-            -- Configure clang-format
             clang_format = {
                 prepend_args = { "--style=file" },
             },
-            -- Configure stylua for Lua
             stylua = {
                 prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" },
             },
-            -- Configure shfmt for shell scripts
             shfmt = {
-                prepend_args = { "-i", "4", "-ci" }, -- 4 spaces, switch cases indent
+                prepend_args = { "-i", "4", "-ci" },
             },
-            -- Configure prettier for JS/TS/JSON/etc
-            prettier = {
-                prepend_args = { "--tab-width", "4", "--use-tabs", "false" },
+            biome = {
+                command = "biome",
+                args = {
+                    "format",
+                    "--stdin-file-path",
+                    "$FILENAME",
+                    "--indent-style=space",
+                    "--indent-width=4",
+                    "--line-width=120",
+                },
+                stdin = true,
             },
-            -- Configure black for Python
-            black = {
-                prepend_args = { "--line-length", "100" }, -- Black uses 4 spaces by default
+            ruff_format = {
+                command = "ruff",
+                args = { "format", "--stdin-filename", "$FILENAME" },
+                stdin = true,
+            },
+            ruff_fix = {
+                command = "ruff",
+                args = { "check", "--fix", "--stdin-filename", "$FILENAME" },
+                stdin = true,
+            },
+            djlint = {
+                command = "djlint",
+                args = {
+                    "--reformat",
+                    "--max-attribute-length",
+                    "120",
+                    "--max-line-length",
+                    "60",
+                    "--max-blank-lines",
+                    "1",
+                    "--preserve-blank-lines",
+                    "--custom-blocks",
+                    "for,endfor,block,endblock",
+                    "-",
+                },
+                stdin = true,
             },
         },
         formatters_by_ft = {
             c = { "clang-format" },
             cpp = { "clang-format" },
+            python = { "ruff_format" },
             lua = { "stylua" },
-            python = { "black" },
-            javascript = { "prettier" },
-            typescript = { "prettier" },
-            json = { "prettier" },
-            jsonc = { "prettier" },
-            html = { "prettier" },
-            css = { "prettier" },
+            htmldjango = { "djlint" },
+            css = { "biome" },
+            javascript = { "biome" },
+            typescript = { "biome" },
+            json = { "biome" },
+            jsonc = { "biome" },
             sh = { "shfmt" },
         },
     },
