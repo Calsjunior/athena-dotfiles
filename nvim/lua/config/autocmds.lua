@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("TermEnter", {
 })
 
 -- Fix lazygit terminal escape key override
-vim.api.nvim_creaet_autocmd("TermOpen", {
+vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
         local bufname = vim.api.nvim_buf_get_name(0)
 
