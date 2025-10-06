@@ -10,6 +10,20 @@ vim.api.nvim_create_autocmd("TermEnter", {
     end,
 })
 
+-- Fix lazygit terminal escape key override
+vim.api.nvim_creaet_autocmd("TermOpen", {
+    callback = function()
+        local bufname = vim.api.nvim_buf_get_name(0)
+
+        -- Check if it's lazygit terminal
+        if bufname:match("lazygit") then
+            vim.keymap.set("t", "<Esc>", "<Esc>", { buffer = true, nowait = true })
+        else
+            vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = true })
+        end
+    end,
+})
+
 -- Auto activate python env if detected
 local function activate_venv()
     local venv_paths = {
