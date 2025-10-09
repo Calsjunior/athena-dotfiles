@@ -31,3 +31,6 @@ vim.keymap.set("n", "tl", "<cmd>bnext<CR>", { desc = "Next Buffer" })
 -- Beginning and End of line
 vim.keymap.set("n", "H", "^", { desc = "Start of line (non-blank)" })
 vim.keymap.set("n", "L", "$", { desc = "End of line (non-blank)" })
+
+-- Save without formatting
+vim.keymap.set("n", "<leader>wn", "<cmd>noautocmd write<CR>", { desc = "Save without formatting" })
