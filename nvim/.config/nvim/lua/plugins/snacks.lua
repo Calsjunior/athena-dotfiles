@@ -1,16 +1,14 @@
 return {
     "folke/snacks.nvim",
+    keys = {
+        { "<leader>e", false },
+        { "<leader>E", false },
+        { "<leader>fe", false },
+        { "<leader>fE", false },
+    },
+
     opts = {
-        explorer = {
-            win = {
-                style = "explorer",
-                cursor = false,
-                cursorline = true,
-                number = false,
-                relativenumber = false,
-                signcolumn = "no",
-            },
-        },
+        explorer = {},
         indent = {
             scope = { enabled = false },
         },
