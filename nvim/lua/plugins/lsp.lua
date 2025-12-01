@@ -22,6 +22,12 @@ return {
                         },
                     },
                 },
+                clangd = {
+                    cmd = {
+                        "clangd",
+                        "--header-insertion=never",
+                    },
+                },
             },
         },
     },
