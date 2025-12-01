@@ -8,7 +8,7 @@ return {
     },
 
     opts = {
-        explorer = {},
+        explorer = { enabled = false },
         indent = {
             scope = { enabled = false },
         },
