@@ -106,7 +106,7 @@ alias uy="yay -Syu"
 alias f="find . -iname"
 alias g="grep --color=auto -R"
 alias ls='ls --color=auto'
-alias recent-installs='grep "installed" /var/log/pacman.log | grep -v "as dependency"'
+alias recent-installs='expac --timefmt="%Y-%m-%d %T" "%l\t%n" $(pacman -Qqe) | sort | tail -n 50'
 alias duh="du -h --max-depth=1"
 alias duu="du -sh *"
 
