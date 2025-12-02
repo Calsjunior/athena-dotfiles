@@ -18,9 +18,6 @@ return {
                 wo = {
                     winhighlight = "Normal:SnacksTerminalNormal,NormalNC:SnacksTerminalNormalNC",
                 },
-                keys = {
-                    term_normal = { "<Esc>", "<C-\\><C-n>", desc = "Enter normal mode" },
-                },
             },
         },
         image = {
