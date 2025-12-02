@@ -115,6 +115,7 @@ alias duu="du -sh *"
 # =============================================================================
 # 1. Autosuggestions 
 if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#606060'
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
