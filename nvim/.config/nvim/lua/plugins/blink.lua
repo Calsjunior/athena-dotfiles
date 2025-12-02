@@ -20,36 +20,12 @@ return {
         },
         keymap = {
             preset = "default",
-            ["<C-CR>"] = { "show", "show_documentation", "hide_documentation" },
-
-            -- Override Tab to prioritize blink.cmp when menu is visible
-            ["<Tab>"] = {
-                function(cmp)
-                    if cmp.is_visible() then
-                        return cmp.select_next()
-                    else
-                        -- Fallback to default Tab behavior
-                        return false
-                    end
-                end,
-                "fallback",
-            },
-            ["<S-Tab>"] = {
-                function(cmp)
-                    if cmp.is_visible() then
-                        return cmp.select_prev()
-                    else
-                        return false
-                    end
-                end,
-                "fallback",
-            },
+            ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 
             -- Accept completion
-            ["<CR>"] = { "accept", "fallback" },
+            ["<C-CR>"] = { "select_and_accept", "fallback" },
 
             -- Close menu
-            ["<C-e>"] = { "hide" },
             ["<Esc>"] = { "hide", "fallback" },
         },
     },
