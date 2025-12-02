@@ -23,3 +23,6 @@ vim.opt.undofile = true
 vim.opt.cursorline = true
 vim.opt.guicursor =
     "n-v-c:block-Cursor/lCursor-blinkwait1000-blinkon100-blinkoff100,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
+
+-- Disable netrw
+vim.g.loaded_netrwPlugin = 1

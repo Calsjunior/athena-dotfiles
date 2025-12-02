@@ -1,6 +1,7 @@
 return {
     {
         "mikavilpas/yazi.nvim",
+        lazy = false,
         keys = {
             {
                 "<leader>e",
@@ -16,6 +17,9 @@ return {
                 end,
                 desc = "Toggle Yazi (cwd)",
             },
+        },
+        opts = {
+            open_for_directories = true,
         },
     },
 }
