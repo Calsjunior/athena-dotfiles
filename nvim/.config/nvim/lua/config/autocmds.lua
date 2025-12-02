@@ -15,8 +15,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
     callback = function()
         local bufname = vim.api.nvim_buf_get_name(0)
 
-        -- Check if it's lazygit terminal
-        if bufname:match("lazygit") then
+        -- Check if it's lazygit or yazi terminal
+        if bufname:match("lazygit") or bufname:match("yazi") then
             vim.keymap.set("t", "<Esc>", "<Esc>", { buffer = true, nowait = true })
         else
             vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { buffer = true })
