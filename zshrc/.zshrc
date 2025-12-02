@@ -47,11 +47,31 @@ compinit
 # Enable the "Interactive Menu"
 zstyle ':completion:*' menu select
 
+# Load menu keymap
+zmodload zsh/complist
+
 # Case insensitive completion 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Pretty colors for the completion list
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# =============================================================================
+#  CUSTOM KEYBINDINGS
+# =============================================================================
+setopt MENU_COMPLETE
+bindkey '^@' menu-complete
+
+# Navigation inside the Menu (Ctrl+N/P)
+bindkey -M menuselect '^n' down-line-or-history
+bindkey -M menuselect '^p' up-line-or-history
+
+# Ctrl+Enter and Ctrl+y to accept menu and autosuggestions 
+bindkey -M menuselect '^[[13;5u' accept-line
+bindkey '^[[13;5u' autosuggest-accept
+
+bindkey -M menuselect '^y' accept-line
+bindkey '^y' autosuggest-accept
 
 # =============================================================================
 #  EXPORTS
