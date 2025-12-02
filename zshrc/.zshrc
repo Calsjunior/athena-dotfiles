@@ -9,16 +9,45 @@ setopt HIST_IGNORE_DUPS          # Don't record duplicates
 setopt HIST_IGNORE_SPACE         # Don't record commands starting with space
 
 # =============================================================================
+#  VIM MODE & CURSOR FIXES
+# =============================================================================
+bindkey -v                       # Enable Vim Mode
+export KEYTIMEOUT=1
+
+# Restore standard keys that Vim mode breaks
+bindkey '^R' history-incremental-search-backward
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+
+# Change cursor shape (Beam in Insert Mode, Block in Normal Mode)
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q' # Block cursor
+  elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q' # Beam cursor
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # Default to Insert Mode
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+
+# =============================================================================
 #  COMPLETION SETTINGS 
 # =============================================================================
 # Initialize completion system
 autoload -Uz compinit
 compinit
 
-# Enable the "Interactive Menu" (Use arrow keys to select options!)
+# Enable the "Interactive Menu"
 zstyle ':completion:*' menu select
 
-# Case insensitive completion (cd doc -> cd Documents)
+# Case insensitive completion 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 # Pretty colors for the completion list
@@ -95,5 +124,4 @@ fi
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-# FZF (Standard Arch setup)
 source <(fzf --zsh)
