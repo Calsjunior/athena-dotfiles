@@ -21,6 +21,8 @@ bindkey '^E' end-of-line
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
+bindkey -M viins '^P' up-line-or-history
+bindkey -M viins '^N' down-line-or-history
 
 # Change cursor shape (Beam in Insert Mode, Block in Normal Mode)
 function zle-keymap-select {
