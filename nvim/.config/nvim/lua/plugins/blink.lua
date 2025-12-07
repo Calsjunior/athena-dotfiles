@@ -16,7 +16,7 @@ return {
             transform_items = function(_, items)
                 return items
             end,
-            min_keyword_length = 3,
+            min_keyword_length = 1,
         },
         keymap = {
             preset = "default",
@@ -26,7 +26,12 @@ return {
             ["<C-CR>"] = { "select_and_accept", "fallback" },
 
             -- Close menu
-            ["<Esc>"] = { "hide", "fallback" },
+            ["<Esc>"] = {
+                function(cmp)
+                    cmp.cancel()
+                    vim.cmd("stopinsert")
+                end,
+            },
         },
     },
 }
