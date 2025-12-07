@@ -7,4 +7,8 @@ return {
         ---@type render.md.UserConfig
         opts = {},
     },
+    {
+        "yousefhadder/markdown-plus.nvim",
+        ft = "markdown",
+    },
 }
