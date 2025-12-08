@@ -112,6 +112,11 @@ alias recent-installs='expac --timefmt="%Y-%m-%d %T" "%l\t%n" $(pacman -Qqe) | s
 alias duh="du -h --max-depth=1"
 alias duu="du -sh *"
 
+# Pandoc
+md2pdf() {
+    pandoc "$1" -o "${1%.*}.pdf" --pdf-engine=tectonic -V geometry:margin=1in
+    echo "Converted $1 to ${1%.*}.pdf"
+}
 # =============================================================================
 #  PLUGINS 
 # =============================================================================
